@@ -1,4 +1,4 @@
-{% set version = "4.0.7" %}
+{% set version = "4.0.11" %}
 
 package:
   name: gitdb
@@ -6,20 +6,20 @@ package:
 
 source:
   url: https://pypi.io/packages/source/g/gitdb/gitdb-{{ version }}.tar.gz
-  sha256: 96bf5c08b157a666fec41129e6d327235284cca4c81e92109260f353ba138005
+  sha256: bf5421126136d6d0af55bc1e7c1af1c397a34f5b7bd79e776cd3e89785c2b04b
 
 build:
   number: 0
   noarch: python
-  script: {{ PYTHON }} -m pip install . --no-deps -vv
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
   host:
     - pip
-    - python >=3.4
+    - python >=3.7
   run:
-    - python >=3.4
-    - smmap >=3.0.1
+    - python >=3.7
+    - smmap >=3.0.1,<6
 
 test:
   requires:
@@ -37,6 +37,11 @@ about:
   summary: Git Object Database
 
 extra:
+  anaconda-services:
+    reason: Dependency for apache-airflow
+    recipe-maintainers:
+      - ianaobi
   recipe-maintainers:
     - pelson
     - ocefpaf
+    - xhochy
